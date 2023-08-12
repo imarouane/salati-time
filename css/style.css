@@ -91,10 +91,15 @@ body {
 .container {
     max-width: 400px;
     width: 100%;
-    display: flex;
+    padding: 2rem 1.5rem;
+}
+
+.prayer-wrapper {
+    display: none;
     flex-direction: column;
     gap: 2rem;
-    padding: 2rem 1.5rem;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .prayer__location-info {
@@ -158,4 +163,59 @@ body {
 .prayer__info--item h3 {
     font-size: 2rem;
     font-weight: 500;
+}
+
+.search-container {
+    padding-block: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+}
+
+.search-container>div:first-child {
+    padding: 0.3rem;
+    border: 3px solid var(--color-d-blue);
+    border-radius: 1.5rem;
+}
+
+.city__input {
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    border: none;
+    outline: none;
+    font-size: 1.8rem;
+    color: var(--color-d-blue);
+    position: relative;
+}
+
+.cities__container {
+    position: absolute;
+    width: 100%;
+    top: 10rem;
+    padding: 1rem 0.5rem;
+    background: var(--color-l-white);
+    border-radius: 1.5rem;
+}
+
+.cities__list {
+    color: var(--color-l-text);
+    list-style: none;
+    font-size: 1.6rem;
+    height: 350px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+}
+
+.cities__list li {
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.cities__list li:hover {
+    background-color: rgb(255, 255, 255);
 }

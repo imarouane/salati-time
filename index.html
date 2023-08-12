@@ -24,43 +24,70 @@
     </div>
     <div id="app">
       <main class="container">
-        <div class="prayer__location-info">
-          <p class="today-time">10:21 م</p>
-          <h2 class="city-name">مراكش</h2>
-          <div>
-            <p class="hijri-date">25/مُحَرَّم/ 1445 هـ</p>
-            <p class="world-date">12/أغسطس/2023 م</p>
+        <div class="prayer-wrapper">
+          <div class="prayer__location-info">
+            <p class="today-time">10:21 م</p>
+            <h2 class="city-name">مراكش</h2>
+            <div>
+              <p class="hijri-date">25/مُحَرَّم/ 1445 هـ</p>
+              <p class="world-date">12/أغسطس/2023 م</p>
+            </div>
+            <button class="btn-location">
+              <img src="assets/icons/pin.svg" alt="icon" />
+            </button>
           </div>
-          <button class="btn-location">
-            <img src="assets/icons/pin.svg" alt="icon" />
-          </button>
+          <ul class="prayer__info">
+            <li class="prayer__info--item">
+              <h3 class="prayer-name">الفجر</h3>
+              <h3 class="prayer-time">4:28ص</h3>
+            </li>
+            <li class="prayer__info--item">
+              <h3 class="prayer-name">الشروق</h3>
+              <h3 class="prayer-time">5:51ص</h3>
+            </li>
+            <li class="prayer__info--item">
+              <h3 class="prayer-name">الظهر</h3>
+              <h3 class="prayer-time">12:27م</h3>
+            </li>
+            <li class="prayer__info--item">
+              <h3 class="prayer-name">العصر</h3>
+              <h3 class="prayer-time">3:52م</h3>
+            </li>
+            <li class="prayer__info--item">
+              <h3 class="prayer-name">المغرب</h3>
+              <h3 class="prayer-time">6:59م</h3>
+            </li>
+            <li class="prayer__info--item">
+              <h3 class="prayer-name">العشاء</h3>
+              <h3 class="prayer-time">8:19م</h3>
+            </li>
+          </ul>
         </div>
-        <ul class="prayer__info">
-          <li class="prayer__info--item">
-            <h3 class="prayer-name">الفجر</h3>
-            <h3 class="prayer-time">4:28ص</h3>
-          </li>
-          <li class="prayer__info--item">
-            <h3 class="prayer-name">الشروق</h3>
-            <h3 class="prayer-time">5:51ص</h3>
-          </li>
-          <li class="prayer__info--item">
-            <h3 class="prayer-name">الظهر</h3>
-            <h3 class="prayer-time">12:27م</h3>
-          </li>
-          <li class="prayer__info--item">
-            <h3 class="prayer-name">العصر</h3>
-            <h3 class="prayer-time">3:52م</h3>
-          </li>
-          <li class="prayer__info--item">
-            <h3 class="prayer-name">المغرب</h3>
-            <h3 class="prayer-time">6:59م</h3>
-          </li>
-          <li class="prayer__info--item">
-            <h3 class="prayer-name">العشاء</h3>
-            <h3 class="prayer-time">8:19م</h3>
-          </li>
-        </ul>
+
+        <div class="search-container">
+          <div>
+            <input
+              id="city__input"
+              type="text"
+              placeholder="ادخل اسم المدينة"
+              autocomplete="off"
+              class="city__input"
+            />
+          </div>
+          <div class="cities__container">
+            <ul class="cities__list">
+              <li class="city" data-city-name="Marrakech">مراكش</li>
+              <li class="city" data-city-name="Marrakech">مراكش</li>
+              <li class="city" data-city-name="Marrakech">مراكش</li>
+              <li class="city" data-city-name="Marrakech">مراكش</li>
+              <li class="city" data-city-name="Marrakech">مراكش</li>
+              <li class="city" data-city-name="Marrakech">مراكش</li>
+              <li class="city" data-city-name="Marrakech">مراكش</li>
+              <li class="city" data-city-name="Marrakech">مراكش</li>
+              <li class="city" data-city-name="Marrakech">مراكش</li>
+            </ul>
+          </div>
+        </div>
       </main>
     </div>
     <script src="js/script.js"></script>
