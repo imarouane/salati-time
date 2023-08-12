@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="shortcut icon"
+      href="assets/icons/mosque_7217643.png"
+      type="image/x-icon"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <meta
+      name="description"
+      content="تطبيق مواقيت الصلاة لمعرفة المواقيت في مدن العالم المختلفة"
+    />
+    <meta name="keywords" content="مواقيت الصلاة, إسلام, أذان" />
+    <meta name="author" content="Marchq21" />
+    <script src="node_modules/axios/dist/axios.js"></script>
+    <title>Salati Time - موقت صلاتي</title>
+  </head>
+  <body>
+    <div class="loading">
+      <img src="assets/icons/mosque_7217643.png" alt="mosque logo" />
+    </div>
+    <div id="app">
+      <main class="container">
+        <div class="prayer__location-info">
+          <p class="today-time">10:21 م</p>
+          <h2 class="city-name">مراكش</h2>
+          <div>
+            <p class="hijri-date">25/مُحَرَّم/ 1445 هـ</p>
+            <p class="world-date">12/أغسطس/2023 م</p>
+          </div>
+          <button class="btn-location">
+            <img src="assets/icons/pin.svg" alt="icon" />
+          </button>
+        </div>
+        <ul class="prayer__info">
+          <li class="prayer__info--item">
+            <h3 class="prayer-name">الفجر</h3>
+            <h3 class="prayer-time">4:28ص</h3>
+          </li>
+          <li class="prayer__info--item">
+            <h3 class="prayer-name">الشروق</h3>
+            <h3 class="prayer-time">5:51ص</h3>
+          </li>
+          <li class="prayer__info--item">
+            <h3 class="prayer-name">الظهر</h3>
+            <h3 class="prayer-time">12:27م</h3>
+          </li>
+          <li class="prayer__info--item">
+            <h3 class="prayer-name">العصر</h3>
+            <h3 class="prayer-time">3:52م</h3>
+          </li>
+          <li class="prayer__info--item">
+            <h3 class="prayer-name">المغرب</h3>
+            <h3 class="prayer-time">6:59م</h3>
+          </li>
+          <li class="prayer__info--item">
+            <h3 class="prayer-name">العشاء</h3>
+            <h3 class="prayer-time">8:19م</h3>
+          </li>
+        </ul>
+      </main>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>

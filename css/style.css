@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+:root {
+    font-size: 62.5%;
+
+    --color-l-white: #edeeff;
+    --color-d-blue: #00296b;
+    --color-l-text: #3c4d95;
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    color: var(--color-l-white);
+    direction: rtl;
+}
+
+.loading {
+    position: fixed;
+    inset: 0;
+    background-color: var(--color-d-blue);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.anime {
+    animation: loading-anim 2s ease-in-out;
+}
+
+@keyframes loading-anim {
+    0% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 0.1;
+        ;
+    }
+}
+
+.loading img {
+    width: 6rem;
+    height: 8rem;
+    animation: from-top 1000ms ease-in-out;
+}
+
+@keyframes from-top {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0.2;
+    }
+
+    110% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#app {
+    height: 100dvh;
+    background-image: url("../assets/imgs/hassan-ii-mosque_78361-3281.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+#app::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-d-blue);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.container {
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+}
+
+.prayer__location-info {
+    padding: 2.4rem 2.8rem;
+    background-color: var(--color-d-blue);
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+}
+
+.today-time {
+    font-size: 3.2rem;
+}
+
+.city-name {
+    font-size: 4.2rem;
+}
+
+.hijri-date,
+.world-date {
+    font-size: 2.4rem;
+}
+
+.btn-location {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    cursor: pointer;
+}
+
+.btn-location img {
+    width: 3rem;
+    height: 3rem;
+}
+
+.prayer__info {
+    padding: 2.4rem 2.8rem;
+    background-color: var(--color-l-white);
+    color: var(--color-l-text);
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+}
+
+.prayer__info--item:not(:last-child) {
+    border-bottom: 1px solid #c4caff;
+}
+
+.prayer__info--item {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 1.2rem;
+}
+
+.prayer__info--item h3 {
+    font-size: 2rem;
+    font-weight: 500;
+}
