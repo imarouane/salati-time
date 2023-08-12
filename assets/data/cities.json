@@ -1,5 +1,10 @@
 [
     {
+        "ar": "الدار البيضاء",
+        "en": "Casablanca",
+        "fr": "Casablanca"
+    },
+    {
         "ar": "ﻋﻴﻦ ﺣﺮﻭﺩﺓ",
         "en": "Ain Harrouda",
         "fr": "Aïn Harrouda"
@@ -15,12 +20,7 @@
         "fr": "Bouskoura"
     },
     {
-        "ar": "الدار البيضاء",
-        "en": "Casablanca",
-        "fr": "Casablanca"
-    },
-    {
-        "ar": "مديونة‬",
+        "ar": "مديونة",
         "en": "Mediouna",
         "fr": "Médiouna"
     },
@@ -266,7 +266,7 @@
         "fr": "Sidi Bennour"
     },
     {    
-        "ar": "",
+        "ar": "سيدي بوزيد",
         "en": "Sidi Bouzid",
         "fr": "Sidi Bouzid"
     },
