@@ -11,14 +11,26 @@ setTimeout(() => {
 
 axios.get("../assets/data/cities.json").then((response) => {
   const cities = response.data;
-  const sortedCeties = cities.sort((a, b) => {
-    return a === b ? 0 : a > b ? 1 : -1;
-  })
-  console.log(sortedCeties);
-  // for (const city of cities) {
-  //   const content = `
-  //   <li class="city" data-city-name="${city.en}">${city.ar}</li>
-  //   `;
-  //   citiesList.innerHTML += content;
-  // }
+  const sortedCities = [];
+  const citiesInArabic = [];
+  for (const city of cities) {
+    citiesInArabic.push(city.ar);
+  }
+  citiesInArabic.sort();
+  // console.log(citiesInArabic);
+  for (let i = 0; i < citiesInArabic.length; i++) {
+    for (let j = 0; j < cities.length; j++) {
+      if (citiesInArabic[i] === cities[j].ar) {
+        sortedCities.push({ ar: citiesInArabic[i], en: cities[j].en });
+      }
+    }
+  }
+  console.log(sortedCities);
+  console.log(sortedCities.length);
+  for (const city of sortedCities) {
+    const content = `
+    <li class="city" data-city-name="${city.en}">${city.ar}</li>
+    `;
+    citiesList.innerHTML += content;
+  }
 });
