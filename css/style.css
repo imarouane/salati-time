@@ -2,10 +2,11 @@
 
 :root {
     font-size: 62.5%;
-
     --color-l-white: #edeeff;
     --color-d-blue: #00296b;
     --color-l-text: #3c4d95;
+    --animate-duration: 60ms;
+    --animate-delay: 0.8s;
 }
 
 *,
@@ -95,21 +96,27 @@ body {
 }
 
 .prayer-wrapper {
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: 2rem;
-    opacity: 0;
-    visibility: hidden;
 }
 
 .prayer__location-info {
     padding: 2.4rem 2.8rem;
     background-color: var(--color-d-blue);
     border-radius: 1.5rem;
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 1rem;
     position: relative;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.prayer__location-info.show {
+    opacity: 1;
+    display: flex;
+    visibility: visible;
 }
 
 .today-time {
@@ -144,10 +151,18 @@ body {
     background-color: var(--color-l-white);
     color: var(--color-l-text);
     border-radius: 1.5rem;
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 1rem;
     list-style: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.prayer__info.show {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
 }
 
 .prayer__info--item:not(:last-child) {
@@ -173,6 +188,12 @@ body {
     position: relative;
 }
 
+.search-container.hide {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
 .prayer__title {
     font-size: 3.6rem;
     font-weight: 500;
@@ -184,6 +205,7 @@ body {
     padding: 0.3rem;
     border: 3px solid var(--color-d-blue);
     border-radius: 1.5rem;
+    position: relative;
 }
 
 .city__input {
@@ -195,6 +217,34 @@ body {
     font-size: 1.8rem;
     color: var(--color-d-blue);
     position: relative;
+}
+
+.loader {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    top: 25%;
+    left: 4%;
+    border: 3px solid var(--color-d-blue);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: none;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+.loader.show {
+    display: inline-block;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .cities__container {
