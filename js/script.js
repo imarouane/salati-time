@@ -1,36 +1,40 @@
 const loadingEl = document.querySelector(".loading");
 const imgEl = document.querySelector(".loading img");
 const citiesList = document.querySelector(".cities__list");
-setTimeout(() => {
-  loadingEl.classList.add("anime");
-  imgEl.classList.add("anime");
-  setTimeout(() => {
-    document.body.removeChild(loadingEl);
-  }, 600);
-}, 1000);
+const cityInput = document.getElementById("city__input");
 
-axios.get("../assets/data/cities.json").then((response) => {
-  const cities = response.data;
-  const sortedCities = [];
-  const citiesInArabic = [];
-  for (const city of cities) {
-    citiesInArabic.push(city.ar);
-  }
-  citiesInArabic.sort();
-  // console.log(citiesInArabic);
-  for (let i = 0; i < citiesInArabic.length; i++) {
-    for (let j = 0; j < cities.length; j++) {
-      if (citiesInArabic[i] === cities[j].ar) {
-        sortedCities.push({ ar: citiesInArabic[i], en: cities[j].en });
+// setTimeout(() => {
+//   loadingEl.classList.add("anime");
+//   imgEl.classList.add("anime");
+//   setTimeout(() => {
+//     document.body.removeChild(loadingEl);
+//   }, 600);
+// }, 1000);
+
+const filterAndDisplayCities = (inputValue) => {
+  axios.get("../assets/data/cities.json").then((response) => {
+    const cities = response.data;
+    const filteredCities = cities.filter((cityObj) => {
+      return cityObj.ar.toLowerCase().startsWith(inputValue);
+    });
+    const sortedCities = filteredCities
+      .slice()
+      .sort((a, b) => a.ar.localeCompare(b.ar));
+    if (sortedCities.length > 0) {
+      for (const city of sortedCities) {
+        const content = `
+      <li class="city" data-city-name="${city.en}">${city.ar}</li>
+      `;
+        citiesList.innerHTML += content;
       }
+    } else {
+      citiesList.innerHTML += "<p>لا يوجد مدينة بهذا الاسم</p>";
     }
-  }
-  console.log(sortedCities);
-  console.log(sortedCities.length);
-  for (const city of sortedCities) {
-    const content = `
-    <li class="city" data-city-name="${city.en}">${city.ar}</li>
-    `;
-    citiesList.innerHTML += content;
-  }
+  });
+};
+cityInput.addEventListener("input", (event) => {
+  citiesList.parentElement.classList.add("fill");
+  citiesList.innerHTML = "";
+  const inputValue = event.target.value.toLowerCase().trim();
+  filterAndDisplayCities(inputValue);
 });
