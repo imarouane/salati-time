@@ -32,6 +32,7 @@ const filterAndDisplayCities = (inputValue) => {
     }
   });
 };
+
 cityInput.addEventListener("input", (event) => {
   citiesList.parentElement.classList.add("fill");
   citiesList.innerHTML = "";
