@@ -7,6 +7,7 @@ const prayerLocationInfo = document.querySelector(".prayer__location-info");
 const prayerInfoContainer = document.querySelector(".prayer__info");
 const loader = document.querySelector(".loader");
 let cityNameEl = document.querySelector(".city-name");
+
 // setTimeout(() => {
 //   loadingEl.classList.add("anime");
 //   imgEl.classList.add("anime");
@@ -14,7 +15,8 @@ let cityNameEl = document.querySelector(".city-name");
 //     document.body.removeChild(loadingEl);
 //   }, 600);
 // }, 1000);
-const arabic_months = [
+
+const ARABIC_MONTHS = [
   "يناير",
   "فبراير",
   "مارس",
@@ -28,7 +30,8 @@ const arabic_months = [
   "نونبر",
   "دجنبر",
 ];
-const arabic_times = {
+
+const ARABIC_PRAYERS_NAME = {
   Fajr: "الفجر",
   Sunrise: "الشروق",
   Dhuhr: "الظهر",
@@ -36,6 +39,7 @@ const arabic_times = {
   Maghrib: "المغرب",
   Isha: "العشاء",
 };
+
 const filterAndDisplayCities = (inputValue) => {
   axios.get("../assets/data/cities.json").then((response) => {
     const cities = response.data;
@@ -66,46 +70,74 @@ cityInput.addEventListener("input", (event) => {
   filterAndDisplayCities(inputValue);
 });
 
-function getFormattedTodayDate() {
+const getFormattedTodayDate = () => {
   const today = new Date();
-  const day = String(today.getDate()).padStart(2, '0');
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // 
+  const day = String(today.getDate()).padStart(2, "0");
+  const month = String(today.getMonth() + 1).padStart(2, "0"); //
   const year = today.getFullYear();
 
   return `${day}-${month}-${year}`;
+};
+
+function getPartOfDay(time) {
+  const parts = time.split(":");
+  const hour = parseInt(parts[0]);
+  if (hour >= 5 && hour < 12) {
+    return `${time} ص`;
+  } else if (hour >= 12 && hour < 17) {
+    return `${time} ظ`;
+  } else if (hour >= 17 && hour < 21) {
+    return `${time} م`;
+  } else {
+    return `${time} ل`;
+  }
 }
 
-const displayPrayeInfo = (cityNameEn) => {
-  axios
-    .get(
-      `http://api.aladhan.com/v1/calendarByCity/2023/8?city=${cityNameEn}&country=morocco&method=5`
-    )
-    .then(function (response) {
-      const allDataObjs = response.data.data;
-      const timings = [];
-      let today = getFormattedTodayDate();
-      for (const dataObj of allDataObjs) {
-        // timings.push(dataObj.timings)
-        if (dataObj.date.gregorian.date == today) {
-          console.log(today);
-        }
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
-displayPrayeInfo("Marrakech");
-
-const getPrayerinfo = (cityNameAr, cityNameEn) => {
+const displayPrayerInfo = (cityNameEn) => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      cityInput.value = cityNameAr;
-      loader.classList.add("show");
-      citiesList.parentElement.classList.remove("fill");
-      resolve();
-    }, 100);
-  })
+    let url = `http://api.aladhan.com/v1/calendarByCity/2023/8?city=${cityNameEn}&country=Morocco&method=5`;
+    axios
+      .get(url)
+      .then((response) => {
+        const allDataObjs = response.data.data;
+        const today = getFormattedTodayDate();
+        for (const dataObj of allDataObjs) {
+          if (dataObj.date.gregorian.date === today) {
+            const timings = dataObj.timings;
+            for (const timeKey in timings) {
+              const time = timings[timeKey].split(" ")[0];
+              const hourFormat = getPartOfDay(time);
+              for (const prayerKey in ARABIC_PRAYERS_NAME) {
+                if (timeKey === prayerKey) {
+                  const contnet = `
+                <li class="prayer__info--item">
+                  <h3 class="prayer-name">${ARABIC_PRAYERS_NAME[prayerKey]}</h3>
+                  <h3 class="prayer-time">${hourFormat}</h3>
+                </li>
+                `;
+                  prayerInfoContainer.innerHTML += contnet;
+                }
+              }
+            }
+          }
+        }
+        resolve();
+      })
+      .catch(function (error) {
+        console.log(error);
+        reject("لا يوجد بيانات لهذه المدينة!");
+      });
+  });
+};
+const getPrayerinfo = (cityNameAr, cityNameEn) => {
+  displayPrayerInfo(cityNameEn)
+    .then(() => {
+      setTimeout(() => {
+        cityInput.value = cityNameAr;
+        loader.classList.add("show");
+        citiesList.parentElement.classList.remove("fill");
+      }, 100);
+    })
     .then(() => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
