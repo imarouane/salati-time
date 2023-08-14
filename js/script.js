@@ -132,11 +132,9 @@ const displayPrayerInfo = (cityNameEn) => {
 const getPrayerinfo = (cityNameAr, cityNameEn) => {
   displayPrayerInfo(cityNameEn)
     .then(() => {
-      setTimeout(() => {
-        cityInput.value = cityNameAr;
-        loader.classList.add("show");
-        citiesList.parentElement.classList.remove("fill");
-      }, 100);
+      cityInput.value = cityNameAr;
+      loader.classList.add("show");
+      citiesList.parentElement.classList.remove("fill");
     })
     .then(() => {
       return new Promise((resolve, reject) => {
