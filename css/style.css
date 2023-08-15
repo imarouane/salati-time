@@ -118,12 +118,14 @@ body {
     visibility: visible;
 }
 
-.today-time {
+.now-time {
     font-size: 3.2rem;
 }
 
 .city-name {
-    font-size: 4.2rem;
+    font-size: 5.2rem;
+    font-weight: 500;
+    line-height: 1;
 }
 
 .hijri-date,
@@ -135,7 +137,7 @@ body {
     background: none;
     border: none;
     position: absolute;
-    top: 2rem;
+    top: 3rem;
     left: 2rem;
     cursor: pointer;
 }
@@ -217,6 +219,9 @@ body {
     color: var(--color-d-blue);
     position: relative;
 }
+.city__input::placeholder {
+    color: var(--color-d-blue);
+}
 
 .loader {
     position: absolute;
@@ -249,13 +254,14 @@ body {
 .cities__container {
     position: absolute;
     width: 100%;
-    top: 17.8rem;
+    top: 16rem;
     padding: 1rem 0.5rem;
     background: var(--color-l-white);
     border-radius: 1.5rem;
     opacity: 0;
     visibility: hidden;
     transition: all 0.25s ease-in-out;
+    z-index: 10;
 }
 
 .cities__container.fill {
@@ -266,7 +272,6 @@ body {
 .cities__list {
     color: var(--color-l-text);
     list-style: none;
-    font-size: 1.6rem;
     max-height: 350px;
     padding: 0.5rem;
     overflow-x: hidden;
@@ -281,7 +286,7 @@ body {
 .cities__list::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 25px;
-    box-shadow: inset 0 0 5px #ccc; 
+    box-shadow: inset 0 0 5px #ccc;
 }
 
 .cities__list::-webkit-scrollbar-thumb {
@@ -290,6 +295,8 @@ body {
 }
 
 .cities__list li {
+    font-size: 1.6rem;
+    font-weight: 500;
     cursor: pointer;
     padding: 1rem;
     border-radius: 1rem;
