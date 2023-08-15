@@ -6,8 +6,10 @@ const searchContainer = document.querySelector(".search-container");
 const prayerLocationInfo = document.querySelector(".prayer__location-info");
 const prayerInfoContainer = document.querySelector(".prayer__info");
 const loader = document.querySelector(".loader");
-let cityNameEl = document.querySelector(".city-name");
-
+const cityNameEl = document.querySelector(".city-name");
+const hijriDate = document.querySelector(".hijri-date");
+const worldDate = document.querySelector(".world-date");
+let nowTime = document.querySelector(".now-time");
 // setTimeout(() => {
 //   loadingEl.classList.add("anime");
 //   imgEl.classList.add("anime");
@@ -16,6 +18,15 @@ let cityNameEl = document.querySelector(".city-name");
 //   }, 600);
 // }, 1000);
 
+const updateDynamicHour = () => {
+  let time = new Date().toLocaleTimeString("en-US", {
+    timeZone: "Africa/Casablanca",
+    // timeZoneName: "short",
+  });
+  let hours = time.split(" ")[0].split(":")[0];
+  let minutes = time.split(" ")[0].split(":")[1];
+  nowTime.innerHTML = `${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
+};
 const ARABIC_MONTHS = [
   "يناير",
   "فبراير",
@@ -64,19 +75,23 @@ const filterAndDisplayCities = (inputValue) => {
 };
 
 cityInput.addEventListener("input", (event) => {
-  citiesList.parentElement.classList.add("fill");
+  citiesList.parentElement.classList.add(
+    "fill",
+    "animate__animated",
+    "animate__fadeIn"
+  );
   citiesList.innerHTML = "";
   const inputValue = event.target.value.toLowerCase().trim();
   filterAndDisplayCities(inputValue);
 });
 
-const getFormattedTodayDate = () => {
+const getTodayDate = () => {
   const today = new Date();
-  const day = String(today.getDate()).padStart(2, "0");
-  const month = String(today.getMonth() + 1).padStart(2, "0"); //
-  const year = today.getFullYear();
+  return today.toLocaleDateString();
+};
 
-  return `${day}-${month}-${year}`;
+const getArabicMonth = (month) => {
+  return ARABIC_MONTHS[month - 1];
 };
 
 function getPartOfDay(time) {
@@ -100,9 +115,19 @@ const displayPrayerInfo = (cityNameEn) => {
       .get(url)
       .then((response) => {
         const allDataObjs = response.data.data;
-        const today = getFormattedTodayDate();
+        const today = getTodayDate();
+        prayerInfoContainer.innerHTML = "";
         for (const dataObj of allDataObjs) {
-          if (dataObj.date.gregorian.date === today) {
+          const prayerTime = new Date(
+            dataObj.date.readable
+          ).toLocaleDateString();
+          if (prayerTime === today) {
+            hijriDate.innerHTML = `${dataObj.date.hijri.day}/${dataObj.date.hijri.month.ar}/${dataObj.date.hijri.year}هـ`;
+            worldDate.innerHTML = `${
+              dataObj.date.gregorian.day
+            }/${getArabicMonth(dataObj.date.gregorian.month.number)}/${
+              dataObj.date.gregorian.year
+            }م`;
             const timings = dataObj.timings;
             for (const timeKey in timings) {
               const time = timings[timeKey].split(" ")[0];
@@ -124,14 +149,15 @@ const displayPrayerInfo = (cityNameEn) => {
         resolve();
       })
       .catch(function (error) {
-        console.log(error);
         reject("لا يوجد بيانات لهذه المدينة!");
+        console.log(error);
       });
   });
 };
 const getPrayerinfo = (cityNameAr, cityNameEn) => {
   displayPrayerInfo(cityNameEn)
     .then(() => {
+      IntervalId = setInterval(updateDynamicHour, 1000);
       cityInput.value = cityNameAr;
       loader.classList.add("show");
       citiesList.parentElement.classList.remove("fill");
