@@ -110,6 +110,7 @@ body {
     position: relative;
     opacity: 0;
     visibility: hidden;
+    z-index: 99;
 }
 
 .prayer__location-info.show {
