@@ -120,6 +120,7 @@ body {
 
 .now-time {
     font-size: 3.2rem;
+    line-height: 1;
 }
 
 .city-name {
@@ -219,6 +220,7 @@ body {
     color: var(--color-d-blue);
     position: relative;
 }
+
 .city__input::placeholder {
     color: var(--color-d-blue);
 }
@@ -260,8 +262,23 @@ body {
     border-radius: 1.5rem;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.25s ease-in-out;
     z-index: 10;
+}
+
+.cities__container.animate__slideInDown {
+    animation: animate__slideInDown 800ms ease-in-out 100ms;
+}
+
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-20%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .cities__container.fill {
@@ -304,8 +321,14 @@ body {
 
 .cities__list p {
     padding: 1rem;
+    font-size: 1.6rem;
 }
 
 .cities__list li:hover {
     background-color: rgb(255, 255, 255);
+}
+
+.error-messge {
+    font-size: 1.8rem;
+    color: var(--color-l-white);
 }
