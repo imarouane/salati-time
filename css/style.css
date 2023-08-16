@@ -227,9 +227,9 @@ body {
 
 .loader {
     position: absolute;
-    width: 26px;
-    height: 26px;
-    top: 25%;
+    width: 24px;
+    height: 24px;
+    top: 28%;
     left: 4%;
     border: 3px solid var(--color-d-blue);
     border-bottom-color: transparent;
