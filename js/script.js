@@ -9,7 +9,9 @@ const loader = document.querySelector(".loader");
 const cityNameEl = document.querySelector(".city-name");
 const hijriDate = document.querySelector(".hijri-date");
 const worldDate = document.querySelector(".world-date");
+const changeLocationBtn = document.querySelector(".btn-location");
 let nowTime = document.querySelector(".now-time");
+
 // setTimeout(() => {
 //   loadingEl.classList.add("anime");
 //   imgEl.classList.add("anime");
@@ -25,7 +27,7 @@ const updateDynamicHour = () => {
   });
   let hours = time.split(" ")[0].split(":")[0];
   let minutes = time.split(" ")[0].split(":")[1];
-  nowTime.innerHTML = `${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
+  nowTime.innerHTML = `${hours}:${minutes}`;
 };
 const ARABIC_MONTHS = [
   "يناير",
@@ -75,11 +77,7 @@ const filterAndDisplayCities = (inputValue) => {
 };
 
 cityInput.addEventListener("input", (event) => {
-  citiesList.parentElement.classList.add(
-    "fill",
-    "animate__animated",
-    "animate__fadeIn"
-  );
+  citiesList.parentElement.classList.add("fill", "animate__slideInDown");
   citiesList.innerHTML = "";
   const inputValue = event.target.value.toLowerCase().trim();
   filterAndDisplayCities(inputValue);
@@ -109,80 +107,85 @@ function getPartOfDay(time) {
 }
 
 const displayPrayerInfo = (cityNameEn) => {
-  return new Promise((resolve, reject) => {
-    let url = `http://api.aladhan.com/v1/calendarByCity/2023/8?city=${cityNameEn}&country=Morocco&method=5`;
-    axios
-      .get(url)
-      .then((response) => {
-        const allDataObjs = response.data.data;
-        const today = getTodayDate();
-        prayerInfoContainer.innerHTML = "";
-        for (const dataObj of allDataObjs) {
-          const prayerTime = new Date(
-            dataObj.date.readable
-          ).toLocaleDateString();
-          if (prayerTime === today) {
-            hijriDate.innerHTML = `${dataObj.date.hijri.day}/${dataObj.date.hijri.month.ar}/${dataObj.date.hijri.year}هـ`;
-            worldDate.innerHTML = `${
-              dataObj.date.gregorian.day
-            }/${getArabicMonth(dataObj.date.gregorian.month.number)}/${
-              dataObj.date.gregorian.year
-            }م`;
-            const timings = dataObj.timings;
-            for (const timeKey in timings) {
-              const time = timings[timeKey].split(" ")[0];
-              const hourFormat = getPartOfDay(time);
-              for (const prayerKey in ARABIC_PRAYERS_NAME) {
-                if (timeKey === prayerKey) {
-                  const contnet = `
+  let url = `http://api.aladhan.com/v1/calendarByCity/2023/8?city=${cityNameEn}&country=Morocco&method=5`;
+  axios
+    .get(url)
+    .then((response) => {
+      const allDataObjs = response.data.data;
+      const today = getTodayDate();
+      prayerInfoContainer.innerHTML = "";
+      for (const dataObj of allDataObjs) {
+        const prayerTime = new Date(dataObj.date.readable).toLocaleDateString();
+        if (prayerTime === today) {
+          hijriDate.innerHTML = `${dataObj.date.hijri.day}/${dataObj.date.hijri.month.ar}/${dataObj.date.hijri.year}هـ`;
+          worldDate.innerHTML = `${dataObj.date.gregorian.day}/${getArabicMonth(
+            dataObj.date.gregorian.month.number
+          )}/${dataObj.date.gregorian.year}م`;
+          const timings = dataObj.timings;
+          for (const timeKey in timings) {
+            const time = timings[timeKey].split(" ")[0];
+            const hourFormat = getPartOfDay(time);
+            for (const prayerKey in ARABIC_PRAYERS_NAME) {
+              if (timeKey === prayerKey) {
+                const contnet = `
                 <li class="prayer__info--item">
                   <h3 class="prayer-name">${ARABIC_PRAYERS_NAME[prayerKey]}</h3>
                   <h3 class="prayer-time">${hourFormat}</h3>
                 </li>
                 `;
-                  prayerInfoContainer.innerHTML += contnet;
-                }
+                prayerInfoContainer.innerHTML += contnet;
               }
             }
           }
         }
-        resolve();
-      })
-      .catch(function (error) {
-        reject("لا يوجد بيانات لهذه المدينة!");
-        console.log(error);
-      });
-  });
+      }
+    })
+    .catch(function () {
+      throw new Error("لا يوجد بيانات لهذه المدينة!");
+    });
 };
 const getPrayerinfo = (cityNameAr, cityNameEn) => {
-  displayPrayerInfo(cityNameEn)
+  new Promise((resolve, reject) => {
+    cityInput.value = cityNameAr;
+    loader.classList.add("show");
+    citiesList.parentElement.classList.remove("fill");
+    resolve();
+  })
     .then(() => {
-      IntervalId = setInterval(updateDynamicHour, 1000);
-      cityInput.value = cityNameAr;
-      loader.classList.add("show");
-      citiesList.parentElement.classList.remove("fill");
+      try {
+        return new Promise((resolve, reject) => {
+          displayPrayerInfo(cityNameEn);
+          resolve();
+        });
+      } catch (error) {
+        searchContainer.innerHTML += `<p class='error-messge'>${error}</p>`;
+      }
     })
     .then(() => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           searchContainer.classList.add(
             "animate__animated",
             "animate__fadeOutUp"
           );
           resolve();
-        }, 1000);
+        }, 500);
       });
     })
     .then(() => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
+        IntervalId = setInterval(updateDynamicHour, 1000);
         setTimeout(() => {
           searchContainer.classList.add("hide");
+          loader.classList.remove("show");
+          searchContainer.classList.remove("animate__animated");
+          cityInput.value = "";
           resolve();
         }, 500);
       });
     })
     .then(() => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           prayerLocationInfo.classList.add(
             "show",
@@ -202,5 +205,28 @@ const getPrayerinfo = (cityNameAr, cityNameEn) => {
           "animate__fadeInUp"
         );
       }, 50);
-    });
+    })
+    .catch(() => {});
 };
+
+changeLocationBtn.addEventListener("click", () => {
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      prayerLocationInfo.classList.add("animate__fadeOutDown");
+      prayerInfoContainer.classList.add("animate__fadeOutUp");
+      resolve();
+    }, 100);
+  }).then(() => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        prayerLocationInfo.classList.remove("show", "animate__fadeInUp");
+        prayerInfoContainer.classList.remove("show", "animate__fadeInUp");
+        resolve();
+      }, 1000);
+    }).then(() => {
+      searchContainer.classList.remove("hide");
+      prayerLocationInfo.classList.remove("animate__fadeOutDown");
+      prayerInfoContainer.classList.remove("animate__fadeOutUp");
+    });
+  });
+});
