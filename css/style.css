@@ -37,39 +37,17 @@ body {
     animation: loading-anim 2s ease-in-out;
 }
 
-@keyframes loading-anim {
-    0% {
-        opacity: 0.9;
-    }
-
-    100% {
-        opacity: 0.1;
-        ;
-    }
-}
-
 .loading img {
     width: 6rem;
     height: 8rem;
     animation: from-top 1000ms ease-in-out;
 }
 
-@keyframes from-top {
-    0% {
-        transform: translateY(-100%);
-        opacity: 0.2;
-    }
-
-    110% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
 #app {
     height: 100dvh;
     background-image: url("../assets/imgs/hassan-ii-mosque_78361-3281.jpg");
     background-repeat: no-repeat;
+    background-position: 10% 10%;
     background-size: cover;
     position: relative;
     display: flex;
@@ -110,7 +88,6 @@ body {
     position: relative;
     opacity: 0;
     visibility: hidden;
-    z-index: 99;
 }
 
 .prayer__location-info.show {
@@ -244,16 +221,6 @@ body {
     display: inline-block;
 }
 
-@keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 .cities__container {
     position: absolute;
     width: 100%;
@@ -268,18 +235,6 @@ body {
 
 .cities__container.animate__slideInDown {
     animation: animate__slideInDown 800ms ease-in-out 100ms;
-}
-
-@keyframes slideInDown {
-    0% {
-        transform: translateY(-20%);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
 }
 
 .cities__container.fill {
@@ -332,4 +287,55 @@ body {
 .error-messge {
     font-size: 1.8rem;
     color: var(--color-l-white);
+}
+
+@keyframes from-top {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0.2;
+    }
+
+    110% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes loading-anim {
+    0% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 0.1;
+        ;
+    }
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-20%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    #app {
+        background-position: center;
+    }
 }
