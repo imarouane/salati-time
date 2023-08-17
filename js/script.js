@@ -12,13 +12,13 @@ const worldDate = document.querySelector(".world-date");
 const changeLocationBtn = document.querySelector(".btn-location");
 let nowTime = document.querySelector(".now-time");
 
-// setTimeout(() => {
-//   loadingEl.classList.add("anime");
-//   imgEl.classList.add("anime");
-//   setTimeout(() => {
-//     document.body.removeChild(loadingEl);
-//   }, 600);
-// }, 1000);
+setTimeout(() => {
+  loadingEl.classList.add("anime");
+  imgEl.classList.add("anime");
+  setTimeout(() => {
+    document.body.removeChild(loadingEl);
+  }, 600);
+}, 1000);
 
 const updateDynamicHour = () => {
   let time = new Date().toLocaleTimeString("en-US", {
@@ -187,12 +187,12 @@ const getPrayerinfo = (cityNameAr, cityNameEn) => {
     .then(() => {
       return new Promise((resolve) => {
         setTimeout(() => {
+          cityNameEl.textContent = cityNameAr;
           prayerLocationInfo.classList.add(
             "show",
             "animate__animated",
             "animate__fadeInUp"
           );
-          cityNameEl.textContent = cityNameAr;
           resolve();
         }, 100);
       });
@@ -206,27 +206,44 @@ const getPrayerinfo = (cityNameAr, cityNameEn) => {
         );
       }, 50);
     })
-    .catch(() => {});
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 changeLocationBtn.addEventListener("click", () => {
   new Promise((resolve, reject) => {
+    clearInterval(IntervalId);
     setTimeout(() => {
-      prayerLocationInfo.classList.add("animate__fadeOutDown");
+      cityNameEl.textContent = "";
+      prayerLocationInfo.classList.add("animate__fadeOutUp");
       prayerInfoContainer.classList.add("animate__fadeOutUp");
       resolve();
     }, 100);
-  }).then(() => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        prayerLocationInfo.classList.remove("show", "animate__fadeInUp");
-        prayerInfoContainer.classList.remove("show", "animate__fadeInUp");
-        resolve();
-      }, 1000);
-    }).then(() => {
+  })
+    .then(() => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          prayerLocationInfo.classList.remove("show", "animate__fadeInUp");
+          resolve();
+        }, 200);
+      });
+    })
+    .then(() => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          prayerInfoContainer.classList.remove("show", "animate__fadeInUp");
+          resolve();
+        }, 500);
+      });
+    })
+    .then(() => {
       searchContainer.classList.remove("hide");
-      prayerLocationInfo.classList.remove("animate__fadeOutDown");
+      searchContainer.classList.add("animate__fadeInUp");
+      prayerLocationInfo.classList.remove("animate__fadeOutUp");
       prayerInfoContainer.classList.remove("animate__fadeOutUp");
+    })
+    .catch((error) => {
+      console.log(error);
     });
-  });
 });
