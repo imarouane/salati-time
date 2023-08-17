@@ -107,7 +107,7 @@ function getPartOfDay(time) {
 }
 
 const displayPrayerInfo = (cityNameEn) => {
-  let url = `http://api.aladhan.com/v1/calendarByCity/2023/8?city=${cityNameEn}&country=Morocco&method=5`;
+  let url = `https://api.aladhan.com/v1/calendarByCity/2023/8?city=${cityNameEn}&country=Morocco&method=5`;
   axios
     .get(url)
     .then((response) => {
