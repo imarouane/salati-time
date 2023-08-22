@@ -1,5 +1,3 @@
-import axios from "axios";
-import "animate.css";
 const loadingEl = document.querySelector(".loading");
 const imgEl = document.querySelector(".loading img");
 const citiesList = document.querySelector(".cities__list");
