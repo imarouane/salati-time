@@ -54,26 +54,30 @@ const ARABIC_PRAYERS_NAME = {
 };
 
 const filterAndDisplayCities = (inputValue) => {
-  axios.get("../assets/data/cities.json").then((response) => {
-    const cities = response.data;
-    const filteredCities = cities.filter((cityObj) => {
-      return cityObj.ar.toLowerCase().startsWith(inputValue);
-    });
-    const sortedCities = filteredCities
-      .slice()
-      .sort((a, b) => a.ar.localeCompare(b.ar));
-    if (sortedCities.length > 0) {
-      for (const city of sortedCities) {
-        const content = `
+  fetch("../assets/data/cities.json")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      const cities = data;
+      const filteredCities = cities.filter((cityObj) => {
+        return cityObj.ar.toLowerCase().startsWith(inputValue);
+      });
+      const sortedCities = filteredCities
+        .slice()
+        .sort((a, b) => a.ar.localeCompare(b.ar));
+      if (sortedCities.length > 0) {
+        for (const city of sortedCities) {
+          const content = `
       <li class="city" onclick="getPrayerinfo('${city.ar}','${city.en}')">${city.ar}</li>
       `;
-        citiesList.innerHTML += content;
+          citiesList.innerHTML += content;
+        }
+      } else {
+        citiesList.innerHTML = "";
+        citiesList.innerHTML += "<p>لا يوجد مدينة بهذا الاسم</p>";
       }
-    } else {
-      citiesList.innerHTML = "";
-      citiesList.innerHTML += "<p>لا يوجد مدينة بهذا الاسم</p>";
-    }
-  });
+    });
 };
 
 cityInput.addEventListener("input", (event) => {
