@@ -12,6 +12,7 @@ const worldDate = document.querySelector(".world-date");
 const changeLocationBtn = document.querySelector(".btn-location");
 let nowTime = document.querySelector(".now-time");
 let IntervalId;
+
 setTimeout(() => {
   loadingEl.classList.add("anime");
   imgEl.classList.add("anime");
@@ -109,9 +110,8 @@ function getPartOfDay(time) {
     return `${time} ل`;
   }
 }
-
 const displayPrayerInfo = (cityNameEn) => {
-  let url = `https://api.aladhan.com/v1/calendarByCity/2023/8?city=${cityNameEn}&country=Morocco&method=5`;
+  const url = `https://api.aladhan.com/v1/calendarByCity/2023/8?city=${cityNameEn}&country=Morocco&method=5`;
   axios
     .get(url)
     .then((response) => {
