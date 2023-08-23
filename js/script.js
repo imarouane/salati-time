@@ -11,7 +11,7 @@ const hijriDate = document.querySelector(".hijri-date");
 const worldDate = document.querySelector(".world-date");
 const changeLocationBtn = document.querySelector(".btn-location");
 let nowTime = document.querySelector(".now-time");
-
+let IntervalId;
 setTimeout(() => {
   loadingEl.classList.add("anime");
   imgEl.classList.add("anime");
@@ -162,7 +162,8 @@ const getPrayerinfo = (cityNameAr, cityNameEn) => {
           resolve();
         });
       } catch (error) {
-        searchContainer.innerHTML += `<p class='error-messge'>${error}</p>`;
+        searchContainer.innerHTML += `<p class='error-messge'>
+        لا يوجد بيانات لهذه المدينة!</p>`;
       }
     })
     .then(() => {
