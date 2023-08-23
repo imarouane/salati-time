@@ -82,10 +82,13 @@ const filterAndDisplayCities = (inputValue) => {
 };
 
 cityInput.addEventListener("input", (event) => {
+  citiesList.parentElement.classList.remove("fill", "animate__slideInDown");
   citiesList.innerHTML = "";
   const inputValue = event.target.value.toLowerCase().trim();
   filterAndDisplayCities(inputValue);
-  citiesList.parentElement.classList.add("fill", "animate__slideInDown");
+  setTimeout(() => {
+    citiesList.parentElement.classList.add("fill", "animate__slideInDown");
+  }, 500);
 });
 
 const getTodayDate = () => {
@@ -145,7 +148,8 @@ const displayPrayerInfo = (cityNameEn) => {
       }
     })
     .catch(function () {
-      throw new Error("لا يوجد بيانات لهذه المدينة!");
+      searchContainer.innerHTML += `<p class='error-messge'>
+        لا يوجد بيانات لهذه المدينة!</p>`;
     });
 };
 const getPrayerinfo = (cityNameAr, cityNameEn) => {
@@ -251,4 +255,12 @@ changeLocationBtn.addEventListener("click", () => {
     .catch((error) => {
       console.log(error);
     });
+});
+
+const appWrapper = document.querySelector(".app-wrapper");
+appWrapper.addEventListener("click", (e) => {
+  if (e.target.classList.contains("app-wrapper")) {
+    citiesList.parentElement.classList.remove("fill", "animate__slideInDown");
+    citiesList.innerHTML = "";
+  }
 });
