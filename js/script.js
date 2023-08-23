@@ -82,9 +82,8 @@ const filterAndDisplayCities = (inputValue) => {
 };
 
 cityInput.addEventListener("input", (event) => {
-  citiesList.parentElement.classList.remove("fill", "animate__slideInDown");
-  citiesList.innerHTML = "";
   const inputValue = event.target.value.toLowerCase().trim();
+  citiesList.innerHTML = "";
   filterAndDisplayCities(inputValue);
   setTimeout(() => {
     citiesList.parentElement.classList.add("fill", "animate__slideInDown");
@@ -148,6 +147,18 @@ const displayPrayerInfo = (cityNameEn) => {
       }
     })
     .catch(function () {
+      prayerInfoContainer.classList.remove(
+        "show",
+        "animate__animated",
+        "animate__fadeInUp"
+      );
+      prayerLocationInfo.classList.remove(
+        "show",
+        "animate__animated",
+        "animate__fadeInUp"
+      );
+      searchContainer.classList.remove("hide");
+      loader.classList.remove("show");
       searchContainer.innerHTML += `<p class='error-messge'>
         لا يوجد بيانات لهذه المدينة!</p>`;
     });
