@@ -82,10 +82,10 @@ const filterAndDisplayCities = (inputValue) => {
 };
 
 cityInput.addEventListener("input", (event) => {
-  citiesList.parentElement.classList.add("fill", "animate__slideInDown");
   citiesList.innerHTML = "";
   const inputValue = event.target.value.toLowerCase().trim();
   filterAndDisplayCities(inputValue);
+  citiesList.parentElement.classList.add("fill", "animate__slideInDown");
 });
 
 const getTodayDate = () => {

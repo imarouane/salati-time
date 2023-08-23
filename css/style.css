@@ -43,7 +43,7 @@ body {
     animation: from-top 1000ms ease-in-out;
 }
 
-#app {
+.app-wrapper {
     height: 100dvh;
     background-image: url("../assets/imgs/hassan-ii-mosque_78361-3281.jpg");
     background-repeat: no-repeat;
@@ -57,7 +57,7 @@ body {
     overflow: hidden;
 }
 
-#app::after {
+.app-wrapper::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -335,7 +335,7 @@ body {
 }
 
 @media screen and (max-width:1000px) {
-    #app {
+    .app-wrapper {
         background-position: center;
     }
 }
