@@ -317,7 +317,7 @@ body {
         opacity: 0.2;
     }
 
-    110% {
+    100% {
         transform: translateY(0);
         opacity: 1;
     }
