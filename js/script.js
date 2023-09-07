@@ -6,6 +6,7 @@ const searchContainer = document.querySelector(".search-container");
 const prayerLocationInfo = document.querySelector(".prayer__location-info");
 const prayerInfoContainer = document.querySelector(".prayer__info");
 const loader = document.querySelector(".loader");
+const citiesContainerLoader = document.querySelector(".cities-loader");
 const cityNameEl = document.querySelector(".city-name");
 const hijriDate = document.querySelector(".hijri-date");
 const worldDate = document.querySelector(".world-date");
@@ -20,6 +21,14 @@ setTimeout(() => {
     document.body.removeChild(loadingEl);
   }, 600);
 }, 1000);
+
+const toggleLoader = (display = true) => {
+  if (display) {
+    citiesContainerLoader.style.display = "block";
+  } else {
+    citiesContainerLoader.style.display = "none";
+  }
+};
 
 const updateDynamicHour = () => {
   let time = new Date().toLocaleTimeString("en-US", {
@@ -60,6 +69,7 @@ const filterAndDisplayCities = (inputValue) => {
       return response.json();
     })
     .then((data) => {
+      toggleLoader(false);
       const cities = data;
       const filteredCities = cities.filter((cityObj) => {
         return cityObj.ar.toLowerCase().startsWith(inputValue);
@@ -84,10 +94,11 @@ const filterAndDisplayCities = (inputValue) => {
 cityInput.addEventListener("input", (event) => {
   const inputValue = event.target.value.toLowerCase().trim();
   citiesList.innerHTML = "";
-  filterAndDisplayCities(inputValue);
+  citiesList.parentElement.classList.add("fill", "slideInDown");
+  toggleLoader(true);
   setTimeout(() => {
-    citiesList.parentElement.classList.add("fill", "animate__slideInDown");
-  }, 500);
+    filterAndDisplayCities(inputValue);
+  }, 250);
 });
 
 const getTodayDate = () => {

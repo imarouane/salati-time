@@ -44,7 +44,7 @@ body {
 }
 
 .app-wrapper {
-    height: 100dvh;
+    min-height: 100dvh;
     background-image: url("../assets/imgs/hassan-ii-mosque_78361-3281.jpg");
     background-repeat: no-repeat;
     background-position: 10% 10%;
@@ -205,15 +205,14 @@ body {
 
 .loader {
     position: absolute;
-    width: 24px;
-    height: 24px;
-    top: 28%;
+    width: 20px;
+    height: 20px;
+    top: 34%;
     left: 4%;
     border: 3px solid var(--color-d-blue);
     border-bottom-color: transparent;
     border-radius: 50%;
     display: none;
-    box-sizing: border-box;
     animation: rotation 1s linear infinite;
 }
 
@@ -233,8 +232,8 @@ body {
     z-index: 10;
 }
 
-.cities__container.animate__slideInDown {
-    animation: animate__slideInDown 800ms ease-in-out 100ms;
+.cities__container.slideInDown {
+    animation: slideInDown 800ms ease-in-out 100ms;
 }
 
 .cities__container.fill {
@@ -242,14 +241,30 @@ body {
     visibility: visible;
 }
 
+.cities-loader {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 19%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 3px solid var(--color-d-blue);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: none;
+    animation: rotation 1s linear infinite;
+    text-align: center;
+}
+
 .cities__list {
     color: var(--color-l-text);
     list-style: none;
-    max-height: 350px;
+    max-height: 300px;
     padding: 0.5rem;
     overflow-x: hidden;
     overflow-y: auto;
     scroll-behavior: smooth;
+    transition: all 0.25s ease-in-out;
 }
 
 .cities__list::-webkit-scrollbar {
@@ -346,7 +361,7 @@ body {
 
 @keyframes slideInDown {
     0% {
-        transform: translateY(-20%);
+        transform: translateY(-10%);
         opacity: 0;
     }
 
@@ -391,14 +406,10 @@ body {
         font-size: 2rem;
     }
 
-    .loader {
-        width: 20px;
-        height: 20px;
-    }
-
     .prayer__info {
         padding: 2rem;
     }
+
     .prayer__info--item h3 {
         font-size: 1.8rem;
     }
