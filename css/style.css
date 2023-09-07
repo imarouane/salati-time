@@ -152,7 +152,7 @@ body {
 .prayer__info--item {
     display: flex;
     justify-content: space-between;
-    padding-block: 1.2rem;
+    padding-block: 1rem;
 }
 
 .prayer__info--item h3 {
@@ -223,7 +223,7 @@ body {
 .cities__container {
     position: absolute;
     width: 100%;
-    top: 16rem;
+    top: 16.5rem;
     padding: 1rem 0.5rem;
     background: var(--color-l-white);
     border-radius: 1.5rem;
@@ -286,7 +286,7 @@ body {
     font-size: 1.6rem;
     font-weight: 500;
     cursor: pointer;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 1rem;
 }
 
@@ -296,7 +296,7 @@ body {
 }
 
 .cities__list li:hover {
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(199, 216, 250, 0.8);
 }
 
 .error-messge {
@@ -378,6 +378,15 @@ body {
 }
 
 @media screen and (max-width:500px) {
+    .container {
+        max-width: 350px;
+        margin-bottom: 18rem;
+    }
+
+    .cities__container {
+        top: 14.5rem;
+    }
+
     .loading img {
         width: 4rem;
         height: 6rem;
@@ -412,11 +421,5 @@ body {
 
     .prayer__info--item h3 {
         font-size: 1.8rem;
-    }
-}
-
-@media screen and (max-height:800px) {
-    .footer {
-        visibility: hidden;
     }
 }

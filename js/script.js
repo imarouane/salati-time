@@ -177,6 +177,7 @@ const displayPrayerInfo = (cityNameEn) => {
         لا يوجد بيانات لهذه المدينة!</p>`;
     });
 };
+
 const getPrayerinfo = (cityNameAr, cityNameEn) => {
   new Promise((resolve, reject) => {
     cityInput.value = cityNameAr;
@@ -186,7 +187,7 @@ const getPrayerinfo = (cityNameAr, cityNameEn) => {
   })
     .then(() => {
       try {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           displayPrayerInfo(cityNameEn);
           resolve();
         });
