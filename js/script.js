@@ -275,6 +275,7 @@ const appWrapper = document.querySelector(".app-wrapper");
 appWrapper.addEventListener("click", (e) => {
   if (e.target.classList.contains("app-wrapper")) {
     citiesList.parentElement.classList.remove("fill", "animate__slideInDown");
+    cityInput.value = "";
     citiesList.innerHTML = "";
   }
 });
