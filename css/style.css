@@ -291,7 +291,7 @@ body {
 
 .footer {
     position: absolute;
-    bottom: 2%;
+    bottom: 1%;
     padding: 1rem;
 }
 
@@ -359,5 +359,53 @@ body {
 @media screen and (max-width:1000px) {
     .app-wrapper {
         background-position: center;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .loading img {
+        width: 4rem;
+        height: 6rem;
+        animation: from-top 1000ms ease-in-out;
+    }
+
+    .prayer__title {
+        font-size: 2.8rem;
+    }
+
+    .city__input {
+        padding: 1.2rem;
+        font-size: 1.6rem;
+    }
+
+    .now-time {
+        font-size: 2.8rem;
+    }
+
+    .city-name {
+        font-size: 4.6rem;
+    }
+
+    .hijri-date,
+    .world-date {
+        font-size: 2rem;
+    }
+
+    .loader {
+        width: 20px;
+        height: 20px;
+    }
+
+    .prayer__info {
+        padding: 2rem;
+    }
+    .prayer__info--item h3 {
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-height:800px) {
+    .footer {
+        visibility: hidden;
     }
 }
