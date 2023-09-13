@@ -380,7 +380,7 @@ body {
 @media screen and (max-width:500px) {
     .container {
         max-width: 350px;
-        margin-bottom: 18rem;
+        margin-top: -4rem;
     }
 
     .cities__container {
@@ -391,6 +391,10 @@ body {
         width: 4rem;
         height: 6rem;
         animation: from-top 1000ms ease-in-out;
+    }
+
+    .btn-location {
+        top: 2.5rem;
     }
 
     .prayer__title {
@@ -421,5 +425,9 @@ body {
 
     .prayer__info--item h3 {
         font-size: 1.8rem;
+    }
+
+    .developed_by {
+        font-size: 2rem;
     }
 }
