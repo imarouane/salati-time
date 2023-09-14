@@ -380,7 +380,7 @@ body {
 @media screen and (max-width:500px) {
     .container {
         max-width: 350px;
-        margin-top: -4rem;
+        margin-bottom: 4rem;
     }
 
     .cities__container {
