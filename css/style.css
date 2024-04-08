@@ -54,6 +54,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1;
+    padding-bottom: 2rem;
     overflow: hidden;
 }
 
@@ -259,7 +260,7 @@ body {
 .cities__list {
     color: var(--color-l-text);
     list-style: none;
-    max-height: 300px;
+    max-height: 265px;
     padding: 0.5rem;
     overflow-x: hidden;
     overflow-y: auto;
